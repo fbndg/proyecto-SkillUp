@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "skillup";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #FFFFFF;
+  --color-base-200: #F3F6F9;
+  --color-base-300: #D8E1E8;
+  --color-base-content: #243B53;
+
+  --color-primary: #243B53;
+  --color-primary-content: #FFFFFF;
+
+  --color-secondary: #C16B28;
+  --color-secondary-content: #111111;
+
+  --color-accent: #F5E1D2;
+  --color-accent-content: #243B53;
+
+  --color-neutral: #172A3A;
+  --color-neutral-content: #FFFFFF;
+
+  --color-info: #0369A1;
+  --color-info-content: #FFFFFF;
+
+  --color-success: #15803D;
+  --color-success-content: #FFFFFF;
+
+  --color-warning: #A16207;
+  --color-warning-content: #FFFFFF;
+
+  --color-error: #B91C1C;
+  --color-error-content: #FFFFFF;
+}
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-titulo: "Lexend", system-ui, sans-serif;
+}
