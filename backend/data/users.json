@@ -1,0 +1,4 @@
+[
+  { "id": 1, "name": "Admin", "email": "admin@skillup.com", "password": "admin123", "role": "admin" },
+  { "id": 2, "name": "Alumno", "email": "alumno@skillup.com", "password": "alumno123", "role": "alumno" }
+]

@@ -12,6 +12,7 @@ function Navbar() {
             <Link to="/login">Login</Link> |{" "}
             <Link to="/catalogo">Catálogo</Link> |{" "}
             <Link to="/admin">Admin</Link>
+			<Link to="/register">Registro</Link>
         </nav>
     );
 }

@@ -1,0 +1,4 @@
+[
+  { "id": 101, "title": "Intro a Python", "description": "Curso básico de programación", "duration": "4 semanas" },
+  { "id": 102, "title": "React desde cero", "description": "Aprende React paso a paso", "duration": "6 semanas" }
+]

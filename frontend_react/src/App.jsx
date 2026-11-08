@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import Catalogo from "./pages/Catalogo";
 import Admin from "./pages/Admin";
 
+import Register from "./pages/Register";
+
 function App() {
   return (
     <BrowserRouter>
@@ -24,7 +26,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/admin" element={<Admin />} />
-        </Routes>
+          <Route path="/register" element={<Register />} />
+	    </Routes>
       </main>
 
       <Footer />
