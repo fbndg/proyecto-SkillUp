@@ -13,7 +13,7 @@ Integrantes.
 - Project Manager: Mayra.
 - QA Tester: Claudia.
 - Data Analyst: (nombre).
-- Marketing: Mayra.
+- Marketing: Marina.
 - Diseñador Gráfico: Gustavo.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -81,6 +81,22 @@ http://localhost:3001
 
 #####################################################################
 
+Backend SkillUp
+
+Auth
+POST /login
+
+Cursos
+GET /courses GET /courses/:id POST /courses PUT /courses/:id DELETE /courses/:id
+
+Usuarios
+GET /users
+
+Inscripciones
+GET /inscripciones POST /inscripciones
+
+#####################################################################
+
 👥 Integrantes.
 
 Backend Developer: (pendiente).

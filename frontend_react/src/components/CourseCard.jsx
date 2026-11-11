@@ -1,3 +1,6 @@
+
+import { Link } from "react-router-dom";
+
 function CourseCard({ course }) {
   return (
     <div className="card bg-base-100 shadow-xl">
@@ -34,9 +37,12 @@ function CourseCard({ course }) {
         </p>
 
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">
+          <Link
+            to={`/curso/${course.id}`}
+            className="btn btn-primary"
+          >
             Ver más
-          </button>
+          </Link>
         </div>
       </div>
     </div>

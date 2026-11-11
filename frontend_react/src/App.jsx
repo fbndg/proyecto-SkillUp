@@ -10,6 +10,10 @@ import Admin from "./pages/Admin";
 
 import Register from "./pages/Register";
 
+import DashboardUsuario from "./pages/DashboardUsuario";
+import DashboardAdmin from "./pages/DashboardAdmin";
+import CursoDetalle from "./pages/CursoDetalle";
+
 function App() {
   return (
     <BrowserRouter>
@@ -27,7 +31,20 @@ function App() {
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/register" element={<Register />} />
-	    </Routes>
+          <Route path="/dashboard" element={<DashboardUsuario />} />
+          <Route path="/curso/:id" element={<CursoDetalle />}
+          />
+
+          <Route
+            path="/admin-dashboard"
+            element={<DashboardAdmin />}
+          />
+
+          <Route
+            path="/curso/:id"
+            element={<CursoDetalle />}
+          />
+        </Routes>
       </main>
 
       <Footer />

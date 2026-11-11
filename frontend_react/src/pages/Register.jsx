@@ -1,6 +1,6 @@
 function Register() {
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-[85vh] bg-base-200">
       <div className="card w-full max-w-md bg-base-100 shadow-xl">
         <div className="card-body">
           <h1 className="text-2xl font-bold text-center">
