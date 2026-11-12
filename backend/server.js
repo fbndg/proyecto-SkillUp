@@ -45,6 +45,7 @@ function auth(req, res, next) {
 
 // CRUD de cursos
 app.get("/courses", (req, res) => res.json(courses));
+
 app.get("/courses/:id", (req, res) => {
   const course = courses.find(
     c => c.id == req.params.id
@@ -71,6 +72,10 @@ app.get("/courses/:id", (req, res) => {
   }
 
   res.json(course);
+});
+
+app.get("/users", (req, res) => {
+  res.json(users);
 });
 
 app.post("/courses", auth, (req, res) => {
