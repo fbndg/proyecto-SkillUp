@@ -7,15 +7,14 @@ function CursoDetalle() {
     const [course, setCourse] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/courses/${id}`)
-            .then((res) => res.json())
-            .then((data) => setCourse(data))
-            .catch((error) => console.error(error));
-			then((data) => {
-  console.log("Curso recibido:", data);
-  setCourse(data);
-})
-    }, [id]);
+  fetch(`http://localhost:3001/courses/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Curso recibido:", data);
+      setCourse(data);
+    })
+    .catch((error) => console.error(error));
+}, [id]);
  
     if (!course) {
   return (
