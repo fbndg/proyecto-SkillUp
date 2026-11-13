@@ -1,0 +1,8 @@
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+function Login(){
+ const navigate=useNavigate(); const [email,setEmail]=useState(""); const [password,setPassword]=useState(""); const [message,setMessage]=useState("");
+ const loginDemo=()=>{ if(!email||!password){setMessage("Completá todos los campos.");return;} localStorage.setItem("user",JSON.stringify({id:"u1",name:"Estudiante Demo",email,role:"ESTUDIANTE",token:"demo-estudiante"})); setMessage("Sesión iniciada correctamente."); setTimeout(()=>navigate("/dashboard"),800); };
+ return (<div className="hero min-h-[85vh] bg-base-200 rounded-2xl"><div className="card w-full max-w-md bg-base-100 shadow-xl"><div className="card-body gap-3"><h1 className="text-2xl font-bold text-center">Entrar al campus</h1><div><label className="label"><span className="label-text font-semibold">Correo electrónico</span></label><input type="email" placeholder="ej: tu@correo.com" className="input input-bordered w-full" value={email} onChange={e=>setEmail(e.target.value)}/></div><div><label className="label"><span className="label-text font-semibold">Contraseña</span></label><input type="password" placeholder="Tu contraseña" className="input input-bordered w-full" value={password} onChange={e=>setPassword(e.target.value)}/></div>{message && <div className="alert alert-info"><span>{message}</span></div>}<button onClick={loginDemo} className="btn btn-primary w-full mt-2">Entrar al campus</button><p className="text-center text-sm">¿No tenés cuenta? <Link to="/register" className="link link-primary">Crear cuenta</Link></p><p className="text-center text-xs">¿Necesitás ayuda? Ayuda de IA 24h</p></div></div></div>);
+}
+export default Login;

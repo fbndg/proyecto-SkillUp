@@ -1,0 +1,5 @@
+import { Link } from "react-router-dom";
+function Footer(){
+ return (<footer className="bg-primary text-white mt-12"><div className="mx-auto max-w-7xl px-6 py-10 grid gap-8 md:grid-cols-3"><div><h3 className="font-bold text-lg">SkillUp Campus</h3><p className="text-sm opacity-90 mt-2">Aprendé algo que puedas usar. Herramientas para la oficina, tus primeros programas y proyectos con IA.</p><p className="text-sm mt-3 font-semibold">Ayuda de IA las 24 horas y respaldo humano.</p></div><div><h4 className="font-bold mb-3">Explorar</h4><ul className="space-y-2 text-sm"><li><Link to="/catalogo">Cursos</Link></li><li><Link to="/login">Entrar al campus</Link></li><li><Link to="/register">Crear cuenta</Link></li><li><a href="#">Política de privacidad</a></li></ul></div><div><h4 className="font-bold mb-3">Contacto</h4><p className="text-sm">hola@skillupcampus.com</p><p className="text-sm mt-2">Redes: Instagram · LinkedIn · YouTube</p></div></div><div className="border-t border-white/20 py-4 text-center text-sm">SkillUp Campus © 2026</div></footer>);
+}
+export default Footer;

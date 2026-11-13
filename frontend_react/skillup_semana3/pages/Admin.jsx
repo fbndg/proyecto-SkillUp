@@ -1,0 +1,3 @@
+import { Link } from "react-router-dom";
+function Admin(){ return (<div><h1 className="text-3xl font-bold">Panel Administrador</h1><p className="mt-2">Gestión de cursos y usuarios.</p><div className="grid md:grid-cols-2 gap-4 mt-6"><Link to="/admin-dashboard" className="card bg-base-100 shadow p-6"><h2 className="font-bold text-xl">Ir a Dashboard Admin →</h2><p className="text-sm mt-2">Ver cursos publicados y gestionar contenido.</p></Link><Link to="/catalogo" className="card bg-base-100 shadow p-6"><h2 className="font-bold text-xl">Ver catálogo público →</h2><p className="text-sm mt-2">Cómo lo ven los estudiantes.</p></Link></div></div>); }
+export default Admin;

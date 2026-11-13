@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lexend:wght@500;700&display=swap');
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "skillup";
+  default: true;
+  --color-primary: #243B53;
+  --color-primary-content: #FFFFFF;
+  --color-secondary: #C16B28;
+  --color-secondary-content: #111111;
+  --color-accent: #F5E1D2;
+  --color-accent-content: #243B53;
+  --color-base-100: #FFFFFF;
+  --color-base-200: #F3F6F9;
+  --color-base-300: #E6EDF3;
+  --color-base-content: #243B53;
+  --color-neutral: #243B53;
+  --color-neutral-content: #FFFFFF;
+  --color-info: #243B53;
+  --color-success: #2E7D5B;
+  --color-warning: #C16B28;
+  --color-error: #B42318;
+  --radius-selector: 0.75rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+}
+
+@theme {
+  --color-primary: #243B53;
+  --color-secondary: #C16B28;
+  --color-accent: #F5E1D2;
+  --color-background: #F3F6F9;
+  --font-title: "Lexend", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+body { font-family: var(--font-body); background-color: var(--color-background); color: var(--color-text); }
+h1,h2,h3,h4,h5,h6 { font-family: var(--font-title); }
