@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { login } from "../api/api";
 
 function Login() {
 
@@ -15,59 +16,43 @@ function Login() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const loginDemo = () => {
+  // [Frontend] 2. Flujo de Autenticación | Evento: login
+  const handleLogin = async () => {
     setEmailError("");
     setPasswordError("");
     setMessage("");
 
-    // MKTG Semana 2 - Mensajes de error y recuperación
-    if (!email) {
-      setEmailError("Ingresá tu correo electrónico.");
-      return;
-    }
-    if (!email.includes("@") || !email.includes(".")) {
-      setEmailError("Revisá el correo. Por ejemplo: nombre@ejemplo.com.");
-      return;
-    }
-    if (!password) {
-      setPasswordError("Ingresá tu contraseña.");
-      return;
-    }
+    if (!email) { setEmailError("Ingresá tu correo electrónico."); return; }
+    if (!email.includes("@") || !email.includes(".")) { setEmailError("Revisá el correo. Por ejemplo: nombre@ejemplo.com."); return; }
+    if (!password) { setPasswordError("Ingresá tu contraseña."); return; }
 
     setLoading(true);
-
-    // Demo Semana 4: admin vs estudiante por correo
-    // Admin demo: admin@skillup.com / 123456 -> va a /admin-dashboard
-    // Cualquier otro correo -> estudiante -> va a /catalogo
-    const isAdmin = email.trim().toLowerCase() === "admin@skillup.com";
-
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: isAdmin ? "admin1" : "u1",
-        name: isAdmin ? "Admin SkillUp" : "Estudiante Demo",
-        email: email.trim(),
-        role: isAdmin ? "ADMIN" : "ESTUDIANTE",
-        token: isAdmin ? "demo-admin" : "demo-estudiante",
-      })
-    );
-
-    // TODO Semana 4 Backend: cambiar este login demo por Login JWT real
-    // POST http://localhost:3001/api/auth/login con email + password
-    // Si backend responde 401: mostrar "No pudimos iniciar sesión con esos datos. Revisá el correo y la contraseña."
-    // Si no hay conexión: "No pudimos conectarnos. Revisá tu conexión y volvé a intentar."
-    // Si falla el servicio: "No pudimos iniciar sesión en este momento. Volvé a intentar en unos minutos."
-
-    setMessage(
-      isAdmin
-        ? "Sesión iniciada como administrador. Te llevamos al panel..."
-        : "Sesión iniciada correctamente. Te llevamos al catálogo..."
-    );
-
-    setTimeout(() => {
+    try {
+      // Intento real con backend - POST /api/auth/login
+      const data = await login(email.trim(), password);
+      const user = data.user || { email: email.trim() };
+      const role = String(user.role || "ESTUDIANTE").toUpperCase();
+      const isAdmin = role === "ADMIN";
+      setMessage(isAdmin ? "Sesión iniciada como administrador. Te llevamos al panel..." : "Sesión iniciada correctamente. Te llevamos al catálogo...");
+      setTimeout(() => { setLoading(false); navigate(isAdmin ? "/admin-dashboard" : "/catalogo"); }, 800);
+    } catch (err) {
       setLoading(false);
-      navigate(isAdmin ? "/admin-dashboard" : "/catalogo");
-    }, 1500);
+      // MKTG Semana 2 - Mensajes amigables con try/catch
+      if (err.message === "NO_CONNECTION") {
+        // Fallback demo solo si backend no está corriendo, para no romper el video del viernes
+        // Si backend está corriendo, este bloque no se ejecuta
+        const isAdmin = email.trim().toLowerCase() === "admin@skillup.com";
+        localStorage.setItem("user", JSON.stringify({ id: isAdmin ? "admin1" : "u1", name: isAdmin ? "Admin SkillUp" : "Estudiante Demo", email: email.trim(), role: isAdmin ? "ADMIN" : "ESTUDIANTE", token: isAdmin ? "demo-admin" : "demo-estudiante" }));
+        setMessage("Backend sin conexión, entrando en modo demo. Te llevamos al catálogo...");
+        setTimeout(() => navigate(isAdmin ? "/admin-dashboard" : "/catalogo"), 800);
+        return;
+      }
+      if (err.status === 401 || err.status === 400) {
+        setMessage("No pudimos iniciar sesión con esos datos. Revisá el correo y la contraseña.");
+      } else {
+        setMessage("No pudimos iniciar sesión en este momento. Volvé a intentar en unos minutos.");
+      }
+    }
   };
 
   useEffect(() => {
@@ -149,7 +134,7 @@ function Login() {
           </p>
 
           <button
-            onClick={loginDemo}
+            onClick={handleLogin}
             className="btn btn-primary w-full"
             disabled={disabled}
           >

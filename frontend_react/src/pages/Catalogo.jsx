@@ -1,5 +1,15 @@
 import { useEffect, useState } from "react";
 import CourseCard from "../components/CourseCard";
+// Fallback local: no depende de api.js, así no se rompe si api.js es el viejo
+function trackEvent(event, props = {}) {
+  const payload = { event, ...props, at: new Date().toISOString() };
+  console.log("[SkillUp Event]", payload);
+  try {
+    const prev = JSON.parse(localStorage.getItem("skillup_events") || "[]");
+    prev.push(payload);
+    localStorage.setItem("skillup_events", JSON.stringify(prev.slice(-200)));
+  } catch {}
+}
 
 const CURSOS_MKTG = [
   {
@@ -66,6 +76,7 @@ function Catalogo() {
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("Todas");
+  const [nivel, setNivel] = useState("Todos");
 
   useEffect(() => {
     document.title = "Catálogo de cursos prácticos | SkillUp Campus";
@@ -74,7 +85,7 @@ function Catalogo() {
       .then((res) => res.json())
       .then((data) => {
         const list = Array.isArray(data) ? data : data.data || [];
-        const clean = dedupById(list);
+        const clean = dedupById(list).slice(0, 20); // FRENO: aunque backend devuelva miles, mostrar max 20
         console.log("Cursos desde API:", list.length, "Únicos:", clean.length);
         setCourses(clean.length > 0 ? clean : CURSOS_MKTG);
         setLoading(false);
@@ -85,6 +96,12 @@ function Catalogo() {
         setLoading(false);
       });
   }, []); // Solo 1 vez, no en loop
+
+  // [PO - Kit Data Analyst] view_course_list: se carga el catálogo o cambia el filtro
+  // Props: categories (categorias), nivel
+  useEffect(() => {
+    if (!loading) trackEvent("view_course_list", { categories: cat, nivel });
+  }, [cat, nivel, loading]);
 
   const cats = ["Todas", ...new Set(courses.map((c) => c.category || c.group || c.level || "General"))];
 

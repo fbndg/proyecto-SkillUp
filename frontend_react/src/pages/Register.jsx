@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { sign_up } from "../api/api";
 
 function Register() {
 
@@ -28,10 +29,10 @@ function Register() {
     document.title = "Crear cuenta | SkillUp Campus";
   }, []);
 
-  const handleRegister = () => {
+  // [Frontend] 2. Flujo de Autenticación | Evento: sign_up
+  const handleRegister = async () => {
     setNameError(""); setEmailError(""); setPasswordError(""); setConfirmError(""); setTermsError(""); setMessage("");
 
-    // MKTG Semana 2 - Validaciones por campo
     if (!name) { setNameError("Escribí tu nombre."); return; }
     if (!email) { setEmailError("Ingresá tu correo electrónico."); return; }
     if (!email.includes("@") || !email.includes(".")) { setEmailError("Revisá el correo. Por ejemplo: nombre@ejemplo.com."); return; }
@@ -41,20 +42,27 @@ function Register() {
     if (!terms) { setTermsError("Aceptá los términos y condiciones para seguir."); return; }
 
     setLoading(true);
-
-    // TODO Semana 4 Backend: conectar con API real
-    // POST http://localhost:3001/api/auth/register con name, email, password
-    // Si backend responde 400 duplicado: mostrar "Ese correo ya está en uso. Iniciá sesión o usá otro correo."
-    // Si no hay conexión: "No pudimos conectarnos. Revisá tu conexión y volvé a intentar."
-    // Si falla el servicio: "No pudimos crear tu cuenta en este momento. Volvé a intentar en unos minutos."
-    // Hoy queda demo para no romper la demo de Semana 4
-
-    setTimeout(() => {
+    try {
+      // Intento real - POST /api/auth/register - Evento sign_up
+      await sign_up(name.trim(), email.trim(), password);
       setLoading(false);
       setSuccess(true);
-      // MKTG Semana 2 - Confirmación
       setMessage("Tu cuenta ya está lista. Elegí qué querés aprender a hacer.");
-    }, 1000);
+    } catch (err) {
+      setLoading(false);
+      if (err.message === "NO_CONNECTION") {
+        // Fallback demo solo si backend no está corriendo
+        setSuccess(true);
+        setMessage("Tu cuenta ya está lista. Elegí qué querés aprender a hacer. (Modo demo: backend sin conexión)");
+        return;
+      }
+      if (err.status === 400) {
+        setEmailError("Ese correo ya está en uso. Iniciá sesión o usá otro correo.");
+        setMessage("Ese correo ya está en uso. Iniciá sesión o usá otro correo.");
+      } else {
+        setMessage("No pudimos crear tu cuenta en este momento. Volvé a intentar en unos minutos.");
+      }
+    }
   };
 
   // MKTG Semana 2 - Igual que Login: botón solo disabled mientras carga, para que el clic muestre los errores
