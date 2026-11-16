@@ -32,18 +32,8 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<DashboardUsuario />} />
-          <Route path="/curso/:id" element={<CursoDetalle />}
-          />
-
-          <Route
-            path="/admin-dashboard"
-            element={<DashboardAdmin />}
-          />
-
-          <Route
-            path="/curso/:id"
-            element={<CursoDetalle />}
-          />
+          <Route path="/curso/:id" element={<CursoDetalle />} />
+          <Route path="/admin-dashboard" element={<DashboardAdmin />} />
         </Routes>
       </main>
 
